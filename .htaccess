@@ -1,0 +1,4 @@
+Options +FollowSymLinks
+RewriteEngine On
+RewriteRule ^algorithms/(.+)?$ algorithms/index.php?type=$1 [QSA,L]
+RewriteRule ^input/(.+)?$ input/index.php?name=$1 [QSA,L]
