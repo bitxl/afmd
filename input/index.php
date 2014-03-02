@@ -27,7 +27,7 @@ if($_GET['name'] == ""){
 							<form action="/posthandler.php" method="post" class="pull-right">
 								<input type="hidden" value="deleteInput" name="action">
 								<input type="hidden" value="<?= $input->name ?>" name="name">
-								<button type="button" style="background:none;border:none;"><span class="glyphicon glyphicon-remove text-danger"></span></button>
+								<button type="submit" style="background:none;border:none;"><span class="glyphicon glyphicon-remove text-danger"></span></button>
 							</form>
 						</li>
 					<? } ?>
@@ -58,7 +58,7 @@ if($_GET['name'] == ""){
 ?>
 	<a href="/input/" class="pull-right btn btn-default clearfix">back to all sets</a>
 	<br>
-	<h2 class="text-info"><?=$_GET['name']?> <small class="pull-right" style="padding-top:20px;">&nbsp;&nbsp;<b>count</b> <?=count($input->getInputData());?> &nbsp;&nbsp; <b>average</b> <?= round(array_sum($input->getInputData())/count($input->getInputData()), 2);?></small></h2>
+	<h2 class="text-info"><?=$_GET['name']?> <small class="pull-right" style="padding-top:20px;">&nbsp;&nbsp;<b>n</b> <?=count($input->getInputData());?> &nbsp;&nbsp; <b>average</b> <?= round(array_sum($input->getInputData())/count($input->getInputData()), 2);?></small></h2>
 	<div class="row">
 		<div class="col-md-6">
 			<h3>Raw input</h3>
