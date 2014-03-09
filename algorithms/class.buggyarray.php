@@ -63,6 +63,20 @@ class BuggyArray{
 		return count($this->data);
 	}
 
+	public static function merge(){
+		$arguments = func_get_args();
+		$result = new BuggyArray();
+		$resultindex = 0;
+		foreach($arguments as $a){
+			$count = $a->getCount();
+			for($i = 0; $i < $count; $i++){
+				$result->set($resultindex, $a->get($i));
+				$resultindex++;
+			}
+		}
+		return $result;
+	}
+
 	private function traverse(){
 		foreach($this->data as &$element){
 			$random_number = mt_rand(0, $this->random_max) / $this->random_max;

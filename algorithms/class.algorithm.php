@@ -37,10 +37,22 @@ class Algorithm{
 		$this->stopTimer($this->stats[$this->name][$this->runcount]);
 		$this->stats[$this->name][$this->runcount]['measures'] = $this->buggy_data->compareToOriginal();
 		$this->runcount++;
-
 	}
 
 	public function getStats(){
+		unset($this->stats[$this->name]['averages']);
+		$averages = array();
+		$runs = count($this->stats[$this->name]);
+		foreach($this->stats[$this->name] as $run){
+			$averages['runtime'] += ($run['stop'] - $run['start']) * 1000;
+			$averages['appearance'] += $run['measures']['appearance'];
+			$averages['changes'] += $run['measures']['changes'];
+		}
+		$averages['runtime'] /= $runs;
+		$averages['appearance'] /= $runs;
+		$averages['changes'] /= $runs;
+		$averages['totalpossiblechanges'] = $run['measures']['totalpossiblechanges'];
+		$this->stats[$this->name]['averages'] = $averages;
 		return $this->stats;
 	}
 } 

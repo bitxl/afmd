@@ -11,34 +11,47 @@ if(!isset($_GET['input']) || $_GET['input'] == ""){
 } else {
 	$input = $_GET['input'];
 }
+if(!isset($_GET['type']) || $_GET['type'] == ""){
+	echo "<p class='text-danger'>No type of algorithm specified</p>";
+	die();
+} else {
+	$type = $_GET['type'];
+}
+
 if(!isset($_GET['error']) || $_GET['error'] == ""){
 	$error_rate = 0;
 } else {
 	$error_rate = $_GET['error'];
 }
+set_time_limit(0);
+include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.mergesort.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.quicksort.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/input/class.input.php');
 
-include_once('class.mergesort.php');
-include_once('../input/class.input.php');
-$mergesort = new MergeSort();
+switch($type){
+	case 'mergesort':
+		$algorithm = new MergeSort();
+		$name = 'MergeSort';
+		break;
+	case 'quicksort':
+		$algorithm = new QuickSort();
+		$name = 'QuickSort';
+		break;
+}
+
 $input = new Input($input);
 $buggydata = new BuggyArray($error_rate);
 $buggydata->loadFromDisk($input->getInputData());
 
-$mergesort->setBuggyData($buggydata);
+$algorithm->setBuggyData($buggydata);
 for($i = 0; $i < $amount; $i++){
-	$mergesort->run();
+	$algorithm->run();
 }
-
-$stats = $mergesort->getStats();
-foreach($stats['MergeSort'] as $run){
-	$averages['runtime'] += ($run['stop'] - $run['start']) * 1000;
-	$averages['appearance'] += $run['measures']['appearance'];
-	$averages['changes'] += $run['measures']['changes'];
-	?>
-<? } ?>
+$stats = $algorithm->getStats();
+?>
 <div class="row">
 	<div class="col-lg-3">
-		<h2 style="margin-top:0px;">Averages - <?= $amount ?> runs</h2>
+		<h2 style="margin-top:0px;">Averages - <?= $amount ?> runs<br><small><?=$type;?></small></h2>
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row">
@@ -46,7 +59,7 @@ foreach($stats['MergeSort'] as $run){
 						<p><b>Time</b></p>
 					</div>
 					<div class="col-sm-8">
-						<p><?= $averages['runtime'] / $amount; ?> ms</p>
+						<p><?= $stats[$name]['averages']['runtime']; ?> ms</p>
 					</div>
 				</div>
 				<div class="row">
@@ -54,7 +67,7 @@ foreach($stats['MergeSort'] as $run){
 						<p><b>Appearance</b></p>
 					</div>
 					<div class="col-sm-8">
-						<p><?= ($averages['appearance'] / $amount) * 100; ?>%</p>
+						<p><?= $stats[$name]['averages']['appearance'] * 100; ?>%</p>
 					</div>
 				</div>
 				<div class="row">
@@ -62,7 +75,7 @@ foreach($stats['MergeSort'] as $run){
 						<p><b>Changes</b></p>
 					</div>
 					<div class="col-sm-8">
-						<p><?= $averages['changes'] / $amount ?></p>
+						<p><?= $stats[$name]['averages']['changes']; ?> / <?= $stats[$name]['averages']['totalpossiblechanges']; ?></p>
 					</div>
 				</div>
 			</div>
@@ -70,7 +83,8 @@ foreach($stats['MergeSort'] as $run){
 	</div>
 	<div class="col-lg-9">
 		<?php
-		foreach($stats['MergeSort'] as $key => $run){
+		foreach($stats[$name] as $key => $run){
+			if($key === 'averages') continue;
 			$succes_percentage = $run['measures']['appearance'] * 100;
 			$success_classname = 'danger';
 			if($succes_percentage > 20) $success_classname = 'warning';

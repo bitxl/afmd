@@ -1,19 +1,41 @@
 <? include_once($_SERVER['DOCUMENT_ROOT'].'/webincludes/header.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/input/class.input.php');
 $allInputs = Input::getAll();
+$names = array(
+	'mergesort' => "MergeSort",
+	'quicksort' => "QuickSort"
+);
 ?>
 	<script>
+		var ajaxResult = null;
 		function reloadResults(){
-			$.ajax({
+			$("#results").html('');
+			$("#ajaxloader, #stopbutton").show();
+			if(ajaxResult != null){
+				ajaxResult.abort();
+			}
+			ajaxResult = $.ajax({
 				url: '/algorithms/runner.php',
 				data: $("#specsform").serialize(),
 				success: function(data){
 					$("#results").html(data);
+					$("#ajaxloader, #stopbutton").hide();
+				},
+				error: function(data){
+					$("#results").html("<p class='text-danger'>Something went wrong getting the results</p>");
+					$("#ajaxloader, #stopbutton").hide();
 				}
 			});
 		}
+		function stopLoading(){
+			ajaxResult.abort();
+			$("#results").html("<p class='text-danger'>You stopped the runs</p>");
+			$("#ajaxloader, #stopbutton").hide();
+		}
 	</script>
+	<h1><?= $names[$_GET['type']] ?></h1>
 	<form onsubmit="reloadResults();return false;" id="specsform">
+		<input type="hidden" name="type" value="<?= $_GET['type']; ?>">
 		<div class="row">
 			<div class="col-md-3">
 				<div class="form-group">
@@ -41,6 +63,9 @@ $allInputs = Input::getAll();
 				<button type="submit" class="btn btn-info" style="margin-top:25px;">
 					run! <span class="glyphicon glyphicon-fast-forward"></span>
 				</button>
+				<a href="javascript:stopLoading();" class="btn btn-danger" style="margin-top:25px;display:none;" id="stopbutton">
+					stop <span class="glyphicon glyphicon-stop"></span> </a> &nbsp;
+				<img src="/css/img/ajax-loader.gif" alt="Loading..." style="margin-top:24px;display:none;" id="ajaxloader"/>
 			</div>
 		</div>
 	</form>

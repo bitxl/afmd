@@ -1,5 +1,5 @@
 <?php
-require_once('class.algorithm.php');
+require_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.algorithm.php');
 class MergeSort extends Algorithm{
 
 	public function __construct(){
