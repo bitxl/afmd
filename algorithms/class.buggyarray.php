@@ -91,6 +91,7 @@ class BuggyArray{
 	public function compareToOriginal(){
 		$results                         = array();
 		$results['appearance']           = $this->measureAppearance();
+		$results['sorted'] = $this->measureIsSorted();
 		$results['changes']              = $this->changes;
 		$results['totalpossiblechanges'] = $this->totalpossiblechanges;
 		return $results;
@@ -98,5 +99,11 @@ class BuggyArray{
 
 	private function measureAppearance(){
 		return count(array_intersect($this->data_original, $this->data)) / count($this->data_original);
+	}
+
+	private function measureIsSorted(){
+		$current = $this->data;
+		sort($this->data);
+		return array_values($current) == array_values($this->data);
 	}
 }

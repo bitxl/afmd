@@ -3,7 +3,9 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/input/class.input.php');
 $allInputs = Input::getAll();
 $names = array(
 	'mergesort' => "MergeSort",
-	'quicksort' => "QuickSort"
+	'quicksort' => "QuickSort",
+	'heapsort' => "HeapSort",
+	'insertionsort' => "InsertionSort"
 );
 ?>
 	<script>

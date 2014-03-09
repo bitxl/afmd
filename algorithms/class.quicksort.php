@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.algorithm.php');
 class QuickSort extends Algorithm{
+	//Algorithm rebuild from: http://andrewbaxter.net/quicksort.php
 
 	public function __construct(){
 		parent::__construct('QuickSort');

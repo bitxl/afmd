@@ -26,6 +26,8 @@ if(!isset($_GET['error']) || $_GET['error'] == ""){
 set_time_limit(0);
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.mergesort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.quicksort.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.heapsort.php');
+include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.insertionsort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/input/class.input.php');
 
 switch($type){
@@ -36,6 +38,14 @@ switch($type){
 	case 'quicksort':
 		$algorithm = new QuickSort();
 		$name = 'QuickSort';
+		break;
+	case 'heapsort':
+		$algorithm = new HeapSort();
+		$name = 'HeapSort';
+		break;
+	case 'insertionsort':
+		$algorithm = new InsertionSort();
+		$name = 'InsertionSort';
 		break;
 }
 
@@ -75,7 +85,8 @@ $stats = $algorithm->getStats();
 						<p><b>Changes</b></p>
 					</div>
 					<div class="col-sm-8">
-						<p><?= $stats[$name]['averages']['changes']; ?> / <?= $stats[$name]['averages']['totalpossiblechanges']; ?></p>
+						<p><?= $stats[$name]['averages']['changes']; ?> / <?= $stats[$name]['averages']['totalpossiblechanges']; ?>
+							<small>(<?=number_format(($stats[$name]['averages']['changes']/$stats[$name]['averages']['totalpossiblechanges'])*100, 2)?>%)</small></p>
 					</div>
 				</div>
 			</div>
@@ -138,6 +149,14 @@ $stats = $algorithm->getStats();
 							</div>
 							<div class="col-sm-6">
 								<p><?= $run['measures']['totalpossiblechanges'] ?></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p><b>Is sorted</b></p>
+							</div>
+							<div class="col-sm-6">
+								<p><?= $run['measures']['sorted']?"Yes":"No" ?></p>
 							</div>
 						</div>
 					</div>

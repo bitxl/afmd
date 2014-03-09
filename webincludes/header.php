@@ -43,6 +43,7 @@ if(!isset($title)){
 								<li><a href="/algorithms/mergesort">Mergesort</a></li>
 								<li><a href="/algorithms/quicksort">Quicksort</a></li>
 								<li><a href="/algorithms/heapsort">Heapsort</a></li>
+								<li><a href="/algorithms/insertionsort">Insertionsort</a></li>
 								<li class="divider"></li>
 								<li class="dropdown-header">Improved</li>
 							</ul>

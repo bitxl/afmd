@@ -1,6 +1,7 @@
 <?php
 require_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.algorithm.php');
 class MergeSort extends Algorithm{
+	//Algorithm rebuild from: https://github.com/technopagan/Computer-Science-Algorithms/blob/master/sorting/merge-sort-algorithm.php
 
 	public function __construct(){
 		parent::__construct('MergeSort');
