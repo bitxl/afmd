@@ -92,6 +92,9 @@ class BuggyArray{
 		$results                         = array();
 		$results['appearance']           = $this->measureAppearance();
 		$results['sorted'] = $this->measureIsSorted();
+		$results['outoforder'] = $this->measureOutOfOrder();
+		$results['levenshtein'] = $this->measureLevenshtein();
+		$results['binarysearch'] = $this->measureBinarySearchable();
 		$results['changes']              = $this->changes;
 		$results['totalpossiblechanges'] = $this->totalpossiblechanges;
 		return $results;
@@ -101,9 +104,79 @@ class BuggyArray{
 		return count(array_intersect($this->data_original, $this->data)) / count($this->data_original);
 	}
 
+	private function measureAppearanceInOrder(){
+		$leftover       = array_intersect($this->data_original, $this->data);
+		$initial_sorted = $this->data_original;
+		sort($initial_sorted);
+		foreach($initial_sorted as $sorted){
+
+		}
+	}
+
+	//measure for each 1/2*(n)*(n-1) pairs if they are in order
+	private function measureOutOfOrder(){
+		$totalincorrect = 0;
+		for($i = 0; $i < count($this->data); $i++){
+			if(!isset($this->data[$i + 1])){
+				break;
+			}
+			if($this->data[$i] > $this->data[$i + 1]){
+				$totalincorrect++;
+			}
+		}
+		return $totalincorrect;
+	}
+
+	private function measureLevenshtein(){
+		$maxlength = strlen((string) max($this->data_original));
+		return levenshtein($this->convertArrayToString($maxlength, $this->data), $this->convertArrayToString($maxlength, $this->data_original));
+	}
+
+	private function convertArrayToString($maxlength, $array){
+		$string = "";
+		foreach($array as $value){
+			$string .= str_pad((string) $value, $maxlength).",";
+		}
+		return $string;
+	}
+
+	private function measureBinarySearchable(){
+		$found = 0;
+		foreach($this->data_original as $original_value){
+			if($this->binary_search($this->data, 0, count($this->data), $original_value)){
+				$found++;
+			}
+		}
+		return $found;
+	}
+
 	private function measureIsSorted(){
 		$current = $this->data;
 		sort($this->data);
 		return array_values($current) == array_values($this->data);
 	}
+
+	private function binary_search(array $a, $first, $last, $key){
+		$lo = $first;
+		$hi = $last - 1;
+
+		while($lo <= $hi){
+			$mid = (int) (($hi - $lo) / 2) + $lo;
+			$cmp = $this->cmp($a[$mid], $key);
+
+			if($cmp < 0){
+				$lo = $mid + 1;
+			} elseif($cmp > 0) {
+				$hi = $mid - 1;
+			} else {
+				return $mid;
+			}
+		}
+		return -($lo + 1);
+	}
+
+	private function cmp($a, $b){
+		return ($a < $b) ? -1 : (($a > $b) ? 1 : 0);
+	}
+
 }

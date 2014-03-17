@@ -137,18 +137,35 @@ $stats = $algorithm->getStats();
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<p><b>Changes</b></p>
+								<p><b>Binary Search found</b></p>
 							</div>
 							<div class="col-sm-6">
-								<p><?= $run['measures']['changes'] ?></p>
+								<p><?= $run['measures']['binarysearch'] ?> / <?= count($run['data']['sorted']) ?></p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<p><b>Out of possible</b></p>
+								<p><b>Levenshtein</b></p>
 							</div>
 							<div class="col-sm-6">
-								<p><?= $run['measures']['totalpossiblechanges'] ?></p>
+								<p><?= $run['measures']['levenshtein'] ?></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p><b>Out of order</b></p>
+							</div>
+							<div class="col-sm-6">
+								<p><?= $run['measures']['outoforder'] ?></p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-sm-6">
+								<p><b>Changes</b></p>
+							</div>
+							<div class="col-sm-6">
+								<p><?= $run['measures']['changes'] ?>
+									/ <?= $run['measures']['totalpossiblechanges'] ?></p>
 							</div>
 						</div>
 						<div class="row">
