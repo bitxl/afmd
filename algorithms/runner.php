@@ -137,7 +137,7 @@ $stats = $algorithm->getStats();
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<p><b>Binary Search found</b></p>
+								<p><b>Binary Search found correctly</b></p>
 							</div>
 							<div class="col-sm-6">
 								<p><?= $run['measures']['binarysearch'] ?> / <?= count($run['data']['sorted']) ?></p>
