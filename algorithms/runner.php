@@ -154,14 +154,14 @@ $stats = $algorithm->getStats();
 							</div>
 						</div>
 						<? } ?>
-						<div class="row">
-							<div class="col-sm-6">
-								<p><b>Out of order</b></p>
-							</div>
-							<div class="col-sm-6">
-								<p><?= $run['measures']['outoforder'] ?></p>
-							</div>
-						</div>
+<!--						<div class="row">-->
+<!--							<div class="col-sm-6">-->
+<!--								<p><b>Out of order</b></p>-->
+<!--							</div>-->
+<!--							<div class="col-sm-6">-->
+<!--								<p>--><?//= $run['measures']['outoforder'] ?><!--</p>-->
+<!--							</div>-->
+<!--						</div>-->
 						<div class="row">
 							<div class="col-sm-6">
 								<p><b>Changes</b></p>
