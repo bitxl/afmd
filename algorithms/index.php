@@ -50,7 +50,7 @@ $names = array(
 					<label for="input">Input</label>
 					<select name="input" id="input" class="form-control">
 						<? foreach($allInputs as $input){ ?>
-							<option value="<?= $input->name ?>"><?= $input->name ?></option>
+							<option value="<?= $input->name ?>"><?= $input->name ?> (<?=count($input->getInputData())?>)</option>
 						<? } ?>
 					</select>
 				</div>
