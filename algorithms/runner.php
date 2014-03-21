@@ -141,7 +141,7 @@ $stats = $algorithm->getStats();
 								<p><b>Binary Search found</b></p>
 							</div>
 							<div class="col-sm-6">
-								<p><?= $run['measures']['binarysearch'] ?> / <?= $run['measures']['appearance'] * count($run['data']['sorted']) ?></p>
+								<p><?= $run['measures']['binarysearch'] ?> / <?= count($run['measures']['intersection']) ?></p>
 							</div>
 						</div>
 						<? if($run['measures']['levenshtein'] != "-1"){?>

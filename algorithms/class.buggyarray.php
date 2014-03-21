@@ -91,6 +91,7 @@ class BuggyArray{
 	public function compareToOriginal(){
 		$results                         = array();
 		$results['appearance']           = $this->measureAppearance();
+		$results['intersection'] = array_intersect($this->data_original, $this->data);
 		$results['sorted'] = $this->measureIsSorted();
 		$results['outoforder'] = $this->measureOutOfOrder();
 		$results['levenshtein'] = $this->measureLevenshtein();
