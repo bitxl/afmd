@@ -86,7 +86,7 @@ $stats = $algorithm->getStats();
 						<p><b>Changes</b></p>
 					</div>
 					<div class="col-sm-8">
-						<p><?= $stats[$name]['averages']['changes']; ?> / <?= $stats[$name]['averages']['totalpossiblechanges']; ?>
+						<p><?= $stats[$name]['averages']['changes']; ?> / <?= number_format($stats[$name]['averages']['totalpossiblechanges'], 0, ",", "."); ?>
 							<small>(<?=number_format(($stats[$name]['averages']['changes']/$stats[$name]['averages']['totalpossiblechanges'])*100, 2)?>%)</small></p>
 					</div>
 				</div>
@@ -168,7 +168,7 @@ $stats = $algorithm->getStats();
 							</div>
 							<div class="col-sm-6">
 								<p><?= $run['measures']['changes'] ?>
-									/ <?= $run['measures']['totalpossiblechanges'] ?></p>
+									/ <?= number_format($run['measures']['totalpossiblechanges'], 0, ",", "."); ?></p>
 							</div>
 						</div>
 						<div class="row">
