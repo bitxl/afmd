@@ -9,48 +9,47 @@ class HeapSort extends Algorithm{
 	}
 
 	public function sort(){
-		return $this->heapsort($this->buggy_data);
+		return $this->heap_sort($this->buggy_data);
 	}
 
-	private function heapify(BuggyArray &$a, &$i, &$heap_size){
-		$l = $i * 2 + 1;
-		$r = $i * 2 + 2;
+	private function build_heap(BuggyArray &$array, $i, $t){
+		$tmp_var = $array->get($i);
+		$j       = $i * 2 + 1;
 
-		if($l < $heap_size && $a->get($i) < $a->get($l)){
-			$largest = $l;
-		} else {
-			$largest = $i;
+		while($j <= $t){
+			if($j < $t){
+				if($array->get($j) < $array->get($j + 1)){
+					$j = $j + 1;
+				}
+			}
+			if($tmp_var < $array->get($j)){
+				$array->set($i, $array->get($j));
+				$i         = $j;
+				$j         = 2 * $i + 1;
+			} else {
+				$j = $t + 1;
+			}
 		}
-
-		if($r < $heap_size && $a->get($largest) < $a->get($r)){
-			$largest = $r;
-		}
-
-		if($largest != $i){
-			$t = $a->get($i);
-			$a->set($i, $a->get($largest));
-			$a->set($largest, $t);
-			$this->heapify($a, $largest, $heap_size);
-		}
+		$array->set($i, $tmp_var);
 	}
 
-	private function build_heap(BuggyArray &$a, &$heap_size){
-		$len = floor($heap_size / 2);
-		for($i = $len; $i > -1; $i--){
-			$this->heapify($a, $i, $heap_size);
+	private function heap_sort(BuggyArray &$array){
+		//This will heapify the array
+		$init = (int) floor(($array->getCount() - 1) / 2);
+		// Thanks jimHuang for bug report
+		for($i = $init; $i >= 0; $i--){
+			$count = $array->getCount() - 1;
+			$this->build_heap($array, $i, $count);
 		}
-	}
 
-	private function heapsort(BuggyArray &$a){
-		$heap_size = $a->getCount();
-		$this->build_heap($a, $heap_size);
-
-		while($heap_size--){
-			$t = $a->get($heap_size);
-			$a->set($heap_size, $a->get(0));
-			$a->set(0, $t);
-			$this->build_heap($a, $heap_size);
+		//swaping of nodes
+		for($i = $array->getCount() - 1; $i >= 1; $i--){
+			$tmp_var    = $array->get(0);
+			$array->set(0, $array->get($i));
+			$array->set($i, $tmp_var);
+			$this->build_heap($array, 0, $i - 1);
 		}
-		return $a;
+
+		return $array;
 	}
 }

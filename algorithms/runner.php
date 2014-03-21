@@ -24,6 +24,7 @@ if(!isset($_GET['error']) || $_GET['error'] == ""){
 	$error_rate = $_GET['error'];
 }
 set_time_limit(0);
+
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.mergesort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.quicksort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.heapsort.php');
@@ -137,12 +138,13 @@ $stats = $algorithm->getStats();
 						</div>
 						<div class="row">
 							<div class="col-sm-6">
-								<p><b>Binary Search found correctly</b></p>
+								<p><b>Binary Search found</b></p>
 							</div>
 							<div class="col-sm-6">
-								<p><?= $run['measures']['binarysearch'] ?> / <?= count($run['data']['sorted']) ?></p>
+								<p><?= $run['measures']['binarysearch'] ?> / <?= $run['measures']['appearance'] * count($run['data']['sorted']) ?></p>
 							</div>
 						</div>
+						<? if($run['measures']['levenshtein'] != "-1"){?>
 						<div class="row">
 							<div class="col-sm-6">
 								<p><b>Levenshtein</b></p>
@@ -151,6 +153,7 @@ $stats = $algorithm->getStats();
 								<p><?= $run['measures']['levenshtein'] ?></p>
 							</div>
 						</div>
+						<? } ?>
 						<div class="row">
 							<div class="col-sm-6">
 								<p><b>Out of order</b></p>

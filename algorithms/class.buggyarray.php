@@ -142,8 +142,9 @@ class BuggyArray{
 
 	private function measureBinarySearchable(){
 		$found = 0;
-		foreach($this->data_original as $original_value){
-			if($this->binary_search($this->data, 0, count($this->data), $original_value)){
+		$leftover = array_intersect($this->data_original, $this->data);
+		foreach($leftover as $original_value){
+			if($this->binary_search($this->data, 1, count($this->data), $original_value)){
 				$found++;
 			}
 		}
