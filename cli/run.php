@@ -1,5 +1,5 @@
 <?php
-$_SERVER['DOCUMENT_ROOT'] = str_replace('/cli', '', getcwd());
+$_SERVER['DOCUMENT_ROOT'] = str_lreplace('/cli', '', getcwd());
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.mergesort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.quicksort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.heapsort.php');
@@ -7,6 +7,16 @@ include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.insertionsort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/input/class.input.php');
 
 parse_str(implode('&', array_slice($argv, 1)), $_GET);
+
+function str_lreplace($search, $replace, $subject){
+	$pos = strrpos($subject, $search);
+
+	if($pos !== false){
+		$subject = substr_replace($subject, $replace, $pos, strlen($search));
+	}
+
+	return $subject;
+}
 
 if(!isset($_GET['amount']) || $_GET['amount'] == ""){
 	echo "No amount of runs specified\n";
