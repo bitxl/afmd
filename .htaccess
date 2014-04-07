@@ -1,5 +1,7 @@
 Options +FollowSymLinks
 RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
 RewriteRule ^algorithms/runner.php$ - [QSA,L]
 RewriteRule ^algorithms/(.+)?$ algorithms/index.php?type=$1 [QSA,L]
 RewriteRule ^input/(.+)?$ input/index.php?name=$1 [QSA,L]
