@@ -24,6 +24,7 @@ if(!isset($_GET['error']) || $_GET['error'] == ""){
 	$error_rate = $_GET['error'];
 }
 set_time_limit(0);
+error_reporting(0);
 
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.mergesort.php');
 include_once($_SERVER['DOCUMENT_ROOT'].'/algorithms/class.quicksort.php');

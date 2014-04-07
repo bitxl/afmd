@@ -25,9 +25,9 @@ class BuggyArray{
 	}
 
 	public function reset(){
-		$this->changes = 0;
+		$this->changes              = 0;
 		$this->totalpossiblechanges = 0;
-		$this->data = $this->data_original;
+		$this->data                 = $this->data_original;
 	}
 
 	public function prettyPrint(){
@@ -64,8 +64,8 @@ class BuggyArray{
 	}
 
 	public static function merge(){
-		$arguments = func_get_args();
-		$result = new BuggyArray();
+		$arguments   = func_get_args();
+		$result      = new BuggyArray();
 		$resultindex = 0;
 		foreach($arguments as $a){
 			$count = $a->getCount();
@@ -91,11 +91,11 @@ class BuggyArray{
 	public function compareToOriginal(){
 		$results                         = array();
 		$results['appearance']           = $this->measureAppearance();
-		$results['intersection'] = array_intersect($this->data_original, $this->data);
-		$results['sorted'] = $this->measureIsSorted();
-		$results['outoforder'] = $this->measureOutOfOrder();
-		$results['levenshtein'] = $this->measureLevenshtein();
-		$results['binarysearch'] = $this->measureBinarySearchable();
+		$results['intersection']         = array_intersect($this->data_original, $this->data);
+		$results['sorted']               = $this->measureIsSorted();
+		$results['outoforder']           = $this->measureOutOfOrder();
+		$results['levenshtein']          = $this->measureLevenshtein();
+		$results['binarysearch']         = $this->measureBinarySearchable();
 		$results['changes']              = $this->changes;
 		$results['totalpossiblechanges'] = $this->totalpossiblechanges;
 		return $results;
@@ -142,7 +142,7 @@ class BuggyArray{
 	}
 
 	private function measureBinarySearchable(){
-		$found = 0;
+		$found    = 0;
 		$leftover = array_intersect($this->data_original, $this->data);
 		foreach($leftover as $original_value){
 			if($this->binary_search($this->data, 1, count($this->data), $original_value)){
