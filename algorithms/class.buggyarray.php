@@ -94,7 +94,7 @@ class BuggyArray{
 		$results['intersection']         = array_intersect($this->data_original, $this->data);
 		$results['sorted']               = $this->measureIsSorted();
 		$results['outoforder']           = $this->measureOutOfOrder();
-		$results['levenshtein']          = $this->measureLevenshtein();
+		//$results['levenshtein']          = $this->measureLevenshtein();
 		$results['binarysearch']         = $this->measureBinarySearchable();
 		$results['changes']              = $this->changes;
 		$results['totalpossiblechanges'] = $this->totalpossiblechanges;

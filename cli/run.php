@@ -57,17 +57,18 @@ $input = new Input($input_name);
 $buggydata = new BuggyArray($error_rate);
 $buggydata->loadFromDisk($input->getInputData());
 
-echo "Running $name\n";
+//echo "Running $name\n";
 
 $algorithm->setBuggyData($buggydata);
 for($i = 0; $i < $amount; $i++){
 	$algorithm->run();
 }
 $stats = $algorithm->getStats();
+$stats[$name]['averages']['amount'] = $amount;
+$stats[$name]['averages']['error_rate'] = $error_rate;
 
-$name = $name."_".$input_name."_".$error_rate."_".$amount;
-$handle = fopen($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."cli".DIRECTORY_SEPARATOR."results".DIRECTORY_SEPARATOR.$name, "w");
-fwrite($handle, json_encode($stats));
+$handle = fopen($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."cli".DIRECTORY_SEPARATOR."results".DIRECTORY_SEPARATOR.$name.".json", "a");
+fwrite($handle, json_encode(array('averages' => $stats[$name]['averages']))."\n");
 fclose($handle);
 
-echo "Written $name\n";
+echo "Written $name ($error_rate)\n";
