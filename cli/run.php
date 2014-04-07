@@ -43,6 +43,7 @@ if(!isset($_GET['error']) || $_GET['error'] == ""){
 	$error_rate = $_GET['error'];
 }
 set_time_limit(0);
+error_reporting(0);
 
 switch($type){
 	case 'mergesort':
@@ -76,6 +77,7 @@ for($i = 0; $i < $amount; $i++){
 $stats = $algorithm->getStats();
 $stats[$name]['averages']['amount'] = $amount;
 $stats[$name]['averages']['error_rate'] = $error_rate;
+$stats[$name]['averages']['input'] = $input_name;
 
 $handle = fopen($_SERVER['DOCUMENT_ROOT'].DIRECTORY_SEPARATOR."cli".DIRECTORY_SEPARATOR."results".DIRECTORY_SEPARATOR.$name.".json", "a");
 fwrite($handle, json_encode(array('averages' => $stats[$name]['averages']))."\n");
